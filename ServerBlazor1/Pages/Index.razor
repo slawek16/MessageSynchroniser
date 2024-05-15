@@ -1,0 +1,31 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.SignalR.Client
+@implements IAsyncDisposable
+@inject NavigationManager NavigationManager
+
+<PageTitle>Event synchroniser</PageTitle>
+
+@if(_userMessages.Count.Equals(0))
+{
+	<p>There is no connected client</p>
+}
+
+@foreach (var user in _userMessages)
+{
+	<div style="border-style:solid">
+		
+		<label>User Id</label>
+		<label>@user.UserName</label>
+		<div id="receivedMessage">
+			<p>Received message</p>
+			<input value="@user.Message" readonly="readonly" />
+		</div>
+
+		<div id="messageToSend">
+			<p>Type to send message automaticly</p>
+
+			<input @oninput="(EventArgs) => {SendDirectMessage(user.UserName, EventArgs.Value.ToString());}" />
+		</div>
+
+	</div>
+}
