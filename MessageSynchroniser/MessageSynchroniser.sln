@@ -7,6 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerBlazor1", "..\ServerB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfClient2", "..\WpfClient2\WpfClient2.csproj", "{6EF5280A-4E3E-48EE-8613-F8C85F3445DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{333B8EB8-8DA0-443B-80BD-4261C22FA802}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageSynchroniser.Domain", "MessageSynchroniser.Domain\MessageSynchroniser.Domain.csproj", "{2362634B-DC91-46F8-8B6A-5B8DD400D57B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C7795015-09A2-4A45-9B59-C675DBE92701}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageSynchroniser.Persistence", "MessageSynchroniser.Persistence\MessageSynchroniser.Persistence.csproj", "{16055A64-0C02-4EAD-B40F-57436E7A1125}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageSynchroniser.Application", "MessageSynchroniser.Application\MessageSynchroniser.Application.csproj", "{8953E552-446C-408D-8BB1-5528A2984935}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +31,26 @@ Global
 		{6EF5280A-4E3E-48EE-8613-F8C85F3445DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EF5280A-4E3E-48EE-8613-F8C85F3445DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EF5280A-4E3E-48EE-8613-F8C85F3445DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2362634B-DC91-46F8-8B6A-5B8DD400D57B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2362634B-DC91-46F8-8B6A-5B8DD400D57B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2362634B-DC91-46F8-8B6A-5B8DD400D57B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2362634B-DC91-46F8-8B6A-5B8DD400D57B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16055A64-0C02-4EAD-B40F-57436E7A1125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16055A64-0C02-4EAD-B40F-57436E7A1125}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16055A64-0C02-4EAD-B40F-57436E7A1125}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16055A64-0C02-4EAD-B40F-57436E7A1125}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8953E552-446C-408D-8BB1-5528A2984935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8953E552-446C-408D-8BB1-5528A2984935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8953E552-446C-408D-8BB1-5528A2984935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8953E552-446C-408D-8BB1-5528A2984935}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2362634B-DC91-46F8-8B6A-5B8DD400D57B} = {333B8EB8-8DA0-443B-80BD-4261C22FA802}
+		{16055A64-0C02-4EAD-B40F-57436E7A1125} = {C7795015-09A2-4A45-9B59-C675DBE92701}
+		{8953E552-446C-408D-8BB1-5528A2984935} = {333B8EB8-8DA0-443B-80BD-4261C22FA802}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F2287E3-676F-4B6A-B2FA-D5F7095E11EB}

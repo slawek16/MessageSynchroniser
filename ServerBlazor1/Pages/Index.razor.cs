@@ -1,13 +1,13 @@
+using MessageSynchroniser.Domain.ValueObjects;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
-using ServerBlazor1.Models;
 
 namespace ServerBlazor1.Pages
 {
 	public partial class Index
 	{
 		private HubConnection? _connection;
-		private List<UserMessage> _userMessages = new();
+		private Dictionary<string, string> _userMessageDictionary = new();
 		private string myId = string.Empty;
 
 
@@ -17,15 +17,16 @@ namespace ServerBlazor1.Pages
 				.WithUrl(NavigationManager.ToAbsoluteUri("/chatHub"))
 				.Build();
 
-			_connection.On<string, string>("ReceiveMessage", (user, message) =>
+			_connection.On<Notification>("ReceiveMessage", (notification) =>
 			{
-				_userMessages.FirstOrDefault(u => u.UserName.Equals(user)).Message = message;
+				_userMessageDictionary[notification.Source] = notification.Content;
 				InvokeAsync(StateHasChanged);
+
 			});
 
 			_connection.On<List<string>>("GetClients", (message) =>
 			{
-				_userMessages = message.Where(m => !m.Equals(myId)).Select(m => new UserMessage(){ UserName = m, Message = string.Empty }).ToList();
+				_userMessageDictionary = message.Where(m => !m.Equals(myId)).ToDictionary(m => m , m => string.Empty);
 				InvokeAsync(StateHasChanged);
 			});
 

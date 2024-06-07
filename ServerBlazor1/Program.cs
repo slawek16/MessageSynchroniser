@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using ServerBlazor1.Hubs;
+using MessageSynchroniser.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddResponseCompression(options =>
 	options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application.octet-stream" });
 });
 builder.Services.AddSignalR();
+
+builder.Services.AddPersistentServices(builder.Configuration);
 
 var app = builder.Build();
 

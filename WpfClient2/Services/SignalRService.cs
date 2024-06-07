@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using MessageSynchroniser.Domain.ValueObjects;
+using Microsoft.AspNetCore.SignalR.Client;
 using System.Net;
 
 namespace WpfClient2.Services
@@ -24,7 +25,13 @@ namespace WpfClient2.Services
 
 		public async Task SendMessage(string user, string message)
 		{
-			await _connection.InvokeAsync("SendMessage", _connection.ConnectionId, message);
+			Notification notification = new Notification(_connection.ConnectionId, "empty", message, DateTime.Now);
+			await _connection.InvokeAsync("SendMessage", notification);
+		}
+
+		public async Task SendMessageTest(string user, string message)
+		{
+			await _connection.InvokeAsync("SendMessageToClient", "userId", message);
 		}
 	}
 }

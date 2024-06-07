@@ -5,26 +5,26 @@
 
 <PageTitle>Event synchroniser</PageTitle>
 
-@if(_userMessages.Count.Equals(0))
+@if(_userMessageDictionary.Count.Equals(0))
 {
 	<p>There is no connected client</p>
 }
 
-@foreach (var user in _userMessages)
+@foreach (var user in _userMessageDictionary)
 {
 	<div style="border-style:solid">
 		
 		<label>User Id</label>
-		<label>@user.UserName</label>
+		<label>@user.Key</label>
 		<div id="receivedMessage">
 			<p>Received message</p>
-			<input value="@user.Message" readonly="readonly" />
+			<input value="@user.Value" readonly="readonly" />
 		</div>
 
 		<div id="messageToSend">
 			<p>Type to send message automaticly</p>
 
-			<input @oninput="(EventArgs) => {SendDirectMessage(user.UserName, EventArgs.Value.ToString());}" />
+			<input @oninput="(EventArgs) => {SendDirectMessage(user.Key, EventArgs.Value.ToString());}" />
 		</div>
 
 	</div>

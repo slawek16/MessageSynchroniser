@@ -1,20 +1,37 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using MessageSynchroniser.Application.Contracts.Persistence;
+using MessageSynchroniser.Application.Models;
+using MessageSynchroniser.Domain.ValueObjects;
+using Microsoft.AspNetCore.SignalR;
 
 namespace ServerBlazor1.Hubs
 {
-	public class ChatHub :Hub
+	public class ChatHub : Hub
 	{
 		private static List<string> clients = new();
-		public override Task OnConnectedAsync()
+		private readonly INotificationRepository _notificationRepository;
+
+		public override async Task<Task> OnConnectedAsync()
 		{
 			clients.Add(Context.ConnectionId);
-			PublicAvailableClients();
+			await PublicAvailableClients();
 
 			return base.OnConnectedAsync();
 		}
-		public async Task SendMessage(string user, string message)
+        public ChatHub(INotificationRepository notificationRepository)
+        {
+            _notificationRepository = notificationRepository;
+		}
+        public async Task SendMessage(Notification notification)
 		{
-			await Clients.Others.SendAsync("ReceiveMessage", user, message);
+			NotificationDto notificationDto = new NotificationDto()
+			{
+				Content = notification.Content,
+				Source = notification.Source,
+				DateCreated = notification.DateCreated,
+				Destination = notification.Destination,
+			};
+			await _notificationRepository.CreateAsync(notificationDto);
+			await Clients.Others.SendAsync("ReceiveMessage", notification);
 		}
 		public async Task SendMessageToClient(string clientId, string message)
 		{
@@ -25,11 +42,11 @@ namespace ServerBlazor1.Hubs
 			await Clients.All.SendAsync("GetClients", clients);
 		}
 
-		public override Task OnDisconnectedAsync(Exception exception)
+		public override async Task<Task> OnDisconnectedAsync(Exception exception)
 		{
 			string userId = Context.ConnectionId;
 			clients.Remove(userId);
-			PublicAvailableClients();
+			await PublicAvailableClients();
 
 			return base.OnDisconnectedAsync(exception);
 		}
